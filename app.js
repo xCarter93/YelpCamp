@@ -6,6 +6,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const methodOverride = require("method-override");
 const morgan = require("morgan");
+const ejsMate = require("ejs-mate");
 const Campground = require("./models/campground");
 
 mongoose.set("strictQuery", false);
@@ -21,6 +22,7 @@ db.once("open", () => {
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 
+app.engine("ejs", ejsMate);
 app.use(morgan("tiny"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("public"));
