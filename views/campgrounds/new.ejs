@@ -3,7 +3,13 @@
 <div class="row">
 	<h1 class="text-center">New Campground</h1>
 	<div class="col-6 offset-3">
-		<form action="/campgrounds" method="POST" novalidate class="validated-form">
+		<form
+			action="/campgrounds"
+			method="POST"
+			novalidate
+			class="validated-form"
+			enctype="multipart/form-data"
+		>
 			<div class="mb-3">
 				<label class="form-label" for="title">Title</label>
 				<input
@@ -14,7 +20,9 @@
 					required
 				/>
 				<div class="valid-feedback">Looks good!</div>
-				<div class="invalid-feedback">Please enter the name of the campground.</div>
+				<div class="invalid-feedback">
+					Please enter the name of the campground.
+				</div>
 			</div>
 			<div class="mb-3">
 				<label class="form-label" for="location">Location</label>
@@ -26,9 +34,24 @@
 					required
 				/>
 				<div class="valid-feedback">Looks good!</div>
-				<div class="invalid-feedback">Please enter the location of the campground.</div>
+				<div class="invalid-feedback">
+					Please enter the location of the campground.
+				</div>
 			</div>
 			<div class="mb-3">
+				<label for="formFileMultiple" class="form-label"
+					>Upload Campground images.</label
+				>
+				<input
+					class="form-control"
+					type="file"
+					id="formFileMultiple"
+					name="image"
+					multiple
+				/>
+			</div>
+			<!-- <input type="file" name="image" multiple> -->
+			<!-- <div class="mb-3">
 				<label class="form-label" for="image">Image URL</label>
 				<input
 					class="form-control"
@@ -39,7 +62,7 @@
 				/>
 				<div class="valid-feedback">Looks good!</div>
 				<div class="invalid-feedback">Please upload an image for the campground.</div>
-			</div>
+			</div> -->
 			<div class="mb-3">
 				<label class="form-label" for="price">Campground Price</label>
 				<div class="input-group">
@@ -55,7 +78,9 @@
 						required
 					/>
 					<div class="valid-feedback">Looks good!</div>
-					<div class="invalid-feedback">Please enter the nightly price of the campground.</div>
+					<div class="invalid-feedback">
+						Please enter the nightly price of the campground.
+					</div>
 				</div>
 			</div>
 
@@ -69,7 +94,9 @@
 					required
 				></textarea>
 				<div class="valid-feedback">Looks good!</div>
-				<div class="invalid-feedback">Please provide a description of the campground.</div>
+				<div class="invalid-feedback">
+					Please provide a description of the campground.
+				</div>
 			</div>
 			<div class="mb-3">
 				<button class="btn btn-success">Add Campground</button>

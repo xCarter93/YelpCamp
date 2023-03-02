@@ -8,6 +8,7 @@
 			method="POST"
 			novalidate
 			class="validated-form"
+			enctype="multipart/form-data"
 		>
 			<div class="mb-3">
 				<label class="form-label" for="title">Title</label>
@@ -20,7 +21,9 @@
 					required
 				/>
 				<div class="valid-feedback">Looks good!</div>
-				<div class="invalid-feedback">Please enter the name of the campground.</div>
+				<div class="invalid-feedback">
+					Please enter the name of the campground.
+				</div>
 			</div>
 			<div class="mb-3">
 				<label class="form-label" for="location">Location</label>
@@ -33,20 +36,25 @@
 					required
 				/>
 				<div class="valid-feedback">Looks good!</div>
-				<div class="invalid-feedback">Please enter the location of the campground.</div>
+				<div class="invalid-feedback">
+					Please enter the location of the campground.
+				</div>
 			</div>
 			<div class="mb-3">
-				<label class="form-label" for="image">Image URL</label>
-				<input
-					class="form-control"
-					type="text"
-					id="image"
-					name="campground[image]"
-					value="<%=campground.image%>"
-					required
-				/>
+				<div class="mb-3">
+					<label for="formFileMultiple" class="form-label">Add Images</label>
+					<input
+						class="form-control"
+						type="file"
+						id="formFileMultiple"
+						name="image"
+						multiple
+					/>
+				</div>
 				<div class="valid-feedback">Looks good!</div>
-				<div class="invalid-feedback">Please upload an image for the campground.</div>
+				<div class="invalid-feedback">
+					Please upload an image for the campground.
+				</div>
 			</div>
 			<div class="mb-3">
 				<label class="form-label" for="price">Campground Price</label>
@@ -64,7 +72,9 @@
 						required
 					/>
 					<div class="valid-feedback">Looks good!</div>
-					<div class="invalid-feedback">Please enter the nightly price of the campground.</div>
+					<div class="invalid-feedback">
+						Please enter the nightly price of the campground.
+					</div>
 				</div>
 			</div>
 
@@ -80,12 +90,27 @@
 <%=campground.description%></textarea
 				>
 				<div class="valid-feedback">Looks good!</div>
-				<div class="invalid-feedback">Please provide a description of the campground.</div>
+				<div class="invalid-feedback">
+					Please provide a description of the campground.
+				</div>
 			</div>
 			<div class="mb-3">
 				<button class="btn btn-success">Update Campground</button>
 			</div>
 		</form>
 		<a href="/campgrounds/<%=campground._id%>">Back to Campground</a>
+	</div>
+	<div class="container mt-3">
+		<div class="row">
+			<% campground.images.forEach(function(img, i) { %>
+			<div class="mb-3 col-sm text-center">
+				<img src="<%= img.url %>" class="img-thumbnail" alt="" />
+				<div class="form-check-inline">
+					<input type="checkbox" name="deleteImages[]" id="image-<%= i %>" value="<%= img.filename %>"/>
+				</div>
+				<label for="image-<%= i %>">Delete</label>
+			</div>
+			<% }) %>
+		</div>
 	</div>
 </div>

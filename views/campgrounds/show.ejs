@@ -4,7 +4,39 @@
 <div class="row">
 	<div class="col-6">
 		<div class="card mb-3">
-			<img src="<%=campground.image%>" class="card-img-top" />
+			<div
+				id="carouselExampleAutoplaying"
+				class="carousel slide"
+				data-bs-ride="carousel"
+			>
+				<div class="carousel-inner">
+					<% for(let img of campground.images) { %>
+					<div class="carousel-item active">
+						<img src="<%=img.url%>" class="d-block w-100" alt="..." />
+					</div>
+					<% } %>
+				</div>
+				<% if(campground.images.length > 1) { %>
+				<button
+					class="carousel-control-prev"
+					type="button"
+					data-bs-target="#carouselExampleAutoplaying"
+					data-bs-slide="prev"
+				>
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button
+					class="carousel-control-next"
+					type="button"
+					data-bs-target="#carouselExampleAutoplaying"
+					data-bs-slide="next"
+				>
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+				<% } %>
+			</div>
 			<div class="card-body">
 				<h5 class="card-title"><%=campground.title%></h5>
 				<p class="card-text"><%=campground.description%></p>
@@ -59,15 +91,40 @@
 						checked
 						aria-label="No rating."
 					/>
-					<input type="radio" id="first-rate1" name="review[rating]" value="1" />
+					<input
+						type="radio"
+						id="first-rate1"
+						name="review[rating]"
+						value="1"
+					/>
 					<label for="first-rate1" title="Terrible">1 star</label>
-					<input type="radio" id="first-rate2" name="review[rating]" value="2" />
+					<input
+						type="radio"
+						id="first-rate2"
+						name="review[rating]"
+						value="2"
+					/>
 					<label for="first-rate2" title="Not good">2 stars</label>
-					<input type="radio" id="first-rate3" name="review[rating]" value="3" />
+					<input
+						type="radio"
+						id="first-rate3"
+						name="review[rating]"
+						value="3"
+					/>
 					<label for="first-rate3" title="Average">3 stars</label>
-					<input type="radio" id="first-rate4" name="review[rating]" value="4" />
+					<input
+						type="radio"
+						id="first-rate4"
+						name="review[rating]"
+						value="4"
+					/>
 					<label for="first-rate4" title="Very good">4 stars</label>
-					<input type="radio" id="first-rate5" name="review[rating]" value="5" />
+					<input
+						type="radio"
+						id="first-rate5"
+						name="review[rating]"
+						value="5"
+					/>
 					<label for="first-rate5" title="Amazing">5 stars</label>
 				</fieldset>
 			</div>
