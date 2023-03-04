@@ -94,23 +94,28 @@
 					Please provide a description of the campground.
 				</div>
 			</div>
+			<div class="container mt-3">
+				<div class="row row-cols-3">
+					<% campground.images.forEach(function(img, i) { %>
+					<div class="mb-3 col text-center">
+						<img src="<%= img.thumbnail %>" class="img-thumbnail" alt="" />
+						<div class="form-check-inline">
+							<input
+								type="checkbox"
+								name="deleteImages[]"
+								id="image-<%= i %>"
+								value="<%= img.filename %>"
+							/>
+						</div>
+						<label for="image-<%= i %>">Delete</label>
+					</div>
+					<% }) %>
+				</div>
+			</div>
 			<div class="mb-3">
 				<button class="btn btn-success">Update Campground</button>
 			</div>
 		</form>
 		<a href="/campgrounds/<%=campground._id%>">Back to Campground</a>
-	</div>
-	<div class="container mt-3">
-		<div class="row">
-			<% campground.images.forEach(function(img, i) { %>
-			<div class="mb-3 col-sm text-center">
-				<img src="<%= img.url %>" class="img-thumbnail" alt="" />
-				<div class="form-check-inline">
-					<input type="checkbox" name="deleteImages[]" id="image-<%= i %>" value="<%= img.filename %>"/>
-				</div>
-				<label for="image-<%= i %>">Delete</label>
-			</div>
-			<% }) %>
-		</div>
 	</div>
 </div>
