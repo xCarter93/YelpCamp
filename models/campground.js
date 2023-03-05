@@ -46,7 +46,7 @@ const CampgroundSchema = new Schema(
 );
 
 CampgroundSchema.virtual("properties.popupText").get(function () {
-	return `<h5>${this.title}</h5><a href=/campgrounds/${this._id}>Go to campground</a>`;
+	return `<h5><a href=/campgrounds/${this._id}>${this.title}</a></h5><p>${this.location}</p>`;
 });
 
 //mongoose middleware that is used to ensure that all reviews are deleted if the associated campground is deleted
