@@ -1,3 +1,8 @@
+# Local Files
+/seeds/cities.js
+/seeds/seedHelper.js
+.history
+
 # Logs
 logs
 *.log

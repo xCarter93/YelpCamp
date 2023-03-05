@@ -3,9 +3,6 @@ const mongoose = require("mongoose");
 const Campground = require("../models/campground");
 const cities = require("./cities");
 const { places, descriptors } = require("./seedHelper");
-const mbxGeocoding = require("@mapbox/mapbox-sdk/services/geocoding");
-const mapBoxToken = process.env.MAPBOX_TOKEN;
-const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 mongoose.set("strictQuery", false);
 const dbName = "YelpCampDB";
@@ -21,23 +18,20 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
 	await Campground.deleteMany({});
-	for (let i = 0; i < 50; i++) {
+	for (let i = 0; i < 500; i++) {
 		const random1000 = Math.floor(Math.random() * 1000);
-		const geoData = await geocoder
-			.forwardGeocode({
-				query: `${cities[random1000].city}, ${cities[random1000].state}`,
-				limit: 1,
-			})
-			.send();
 		const price = Math.floor(Math.random() * 65 + 7);
 		const camp = new Campground({
 			author: "63fa94d17b2434928c213dc2",
-			location: `${cities[random1000].city}, ${cities[random1000].state}`,
+			location: `${cities[random1000].city}, ${cities[random1000].country}`,
 			title: `${sample(descriptors)} ${sample(places)}`,
 			description:
 				"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Arcu cursus vitae congue mauris rhoncus aenean.",
 			price,
-			geometry: geoData.body.features[0].geometry,
+			geometry: {
+				type: "Point",
+				coordinates: [cities[random1000].lng, cities[random1000].lat],
+			},
 			images: [
 				{
 					url: "https://res.cloudinary.com/dpiff2nvg/image/upload/v1677796764/YelpCamp/x1quvuphfdakmxn4nwei.jpg",
