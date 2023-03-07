@@ -1,34 +1,46 @@
 <% layout('layouts/boilerplate')%>
-<div id="cluster-map"></div>
-<h1>Campgrounds</h1>
-
-<div>
-	<a href="/campgrounds/new">Add Campground</a>
+<div class="mb-3" id="cluster-map"></div>
+<div class="container text-center">
+	<div class="row justify-content-between">
+		<div class="col-4 align-items-center">
+			<h1>Campgrounds</h1>
+		</div>
+		<div class="col-4 align-items-center">
+			<nav >
+				<ul class="pagination">
+					<li class="page-item <%=page===1 ? 'disabled' : ''%>"><a class="page-link" href="/campgrounds?page=<%= page-1 %>">Previous</a></li>
+					<li class="page-item <%=page===numPages ? 'disabled' : ''%>"><a class="page-link" href="/campgrounds?page=<%= page+1 %>">Next</a></li>
+				</ul>
+			</nav>
+		</div>
+	</div>
 </div>
 
-	<% for (let campground of campgrounds) {%>
-		<div class="card mb-3">
-			<div class="row">
-				<div class="col-md-4">
-					<img src="<%=campground.images[0].url%>" class="img-fluid" alt="">
-				</div>
-				<div class="col-md-8">
-					<div class="card-body">
-						<h5 class="card-title"><%=campground.title%></h5>
-						<p class="card-text"><%=campground.description%></p>
-						<p class="card-text">
-							<small class="text-body-secondary"><%=campground.location%></small>
-						</p>
-						<a href="campgrounds/<%=campground._id%>" class="btn btn-primary">View <%=campground.title%></a>
-					</div>
-				</div>
+<% for (let campground of paginatedCampgrounds) {%>
+<div class="card mb-3">
+	<div class="row">
+		<div class="col-md-4">
+			<img src="<%=campground.images[0].url%>" class="img-fluid" alt="" />
+		</div>
+		<div class="col-md-8">
+			<div class="card-body">
+				<h5 class="card-title"><%=campground.title%></h5>
+				<p class="card-text"><%=campground.description%></p>
+				<p class="card-text">
+					<small class="text-body-secondary"><%=campground.location%></small>
+				</p>
+				<a href="campgrounds/<%=campground._id%>" class="btn btn-primary"
+					>View <%=campground.title%></a
+				>
 			</div>
 		</div>
-	<% } %>
+	</div>
+</div>
+<% } %>
 
-	<script>
-		const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
-		const campgrounds = { features: <%- JSON.stringify(campgrounds) %>}
-	</script>
-	
-	<script src="/scripts/clusterMap.js"></script>
+<script>
+	const mapToken = '<%-process.env.MAPBOX_TOKEN%>';
+	const campgrounds = { features: <%- JSON.stringify(campgrounds) %>}
+</script>
+
+<script src="/scripts/clusterMap.js"></script>

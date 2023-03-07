@@ -6,7 +6,26 @@ const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 module.exports.index = async (req, res, next) => {
 	const campgrounds = await Campground.find({});
-	res.render("campgrounds/index", { campgrounds: campgrounds });
+	const numCampgrounds = campgrounds.length;
+
+	let { page, size } = req.query;
+	if (!page) {
+		page = 1;
+	}
+	if (!size) {
+		size = 10;
+	}
+	const limit = parseInt(size);
+	const skip = (page - 1) * size;
+	const numPages = Math.ceil(numCampgrounds / limit);
+
+	const paginatedCampgrounds = await Campground.find().limit(limit).skip(skip);
+	res.render("campgrounds/index", {
+		campgrounds: campgrounds,
+		paginatedCampgrounds: paginatedCampgrounds,
+		numPages: parseInt(numPages),
+		page: parseInt(page),
+	});
 };
 
 module.exports.renderNewForm = (req, res) => {
