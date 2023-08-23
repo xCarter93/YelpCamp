@@ -21,7 +21,7 @@ const User = require("./models/user");
 
 mongoose.set("strictQuery", false);
 const dbName = "YelpCampDB";
-const mongoURL = `mongodb+srv://xcarter93:${process.env.DB_PASSWORD}@cluster0.jwhx2lt.mongodb.net/${dbName}`;
+const mongoURL = `${process.env.MONGO_CONNECTION_STRING}${dbName}?retryWrites=true&w=majority`;
 mongoose.connect(mongoURL);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
