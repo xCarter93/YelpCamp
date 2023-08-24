@@ -4,9 +4,9 @@ const Campground = require("../models/campground");
 const cities = require("./cities");
 const { places, descriptors } = require("./seedHelper");
 
-mongoose.set("strictQuery", false);
+mongoose.set("strictQuery", true);
 const dbName = "YelpCampDB";
-const mongoURL = `mongodb+srv://xcarter93:${process.env.DB_PASSWORD}@cluster0.jwhx2lt.mongodb.net/${dbName}`;
+const mongoURL = `${process.env.MONGO_CONNECTION_STRING}/${dbName}`;
 mongoose.connect(mongoURL);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -18,11 +18,11 @@ const sample = (array) => array[Math.floor(Math.random() * array.length)];
 
 const seedDB = async () => {
 	await Campground.deleteMany({});
-	for (let i = 0; i < 500; i++) {
+	for (let i = 0; i < 100; i++) {
 		const random1000 = Math.floor(Math.random() * 1000);
 		const price = Math.floor(Math.random() * 65 + 7);
 		const camp = new Campground({
-			author: "63fa94d17b2434928c213dc2",
+			author: "64e68b04f9bdf885328e5aac",
 			location: `${cities[random1000].city}, ${cities[random1000].country}`,
 			title: `${sample(descriptors)} ${sample(places)}`,
 			description:
