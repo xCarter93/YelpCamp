@@ -5,6 +5,9 @@ const mapBoxToken = process.env.MAPBOX_TOKEN;
 const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 module.exports.index = async (req, res, next) => {
+	const dbName = "YelpCampDB";
+	const mongoURL = `${process.env.MONGO_CONNECTION_STRING}/${dbName}?retryWrites=true&w=majority`;
+	await mongoose.connect(mongoURL);
 	const campgrounds = await Campground.find({});
 	const numCampgrounds = campgrounds.length;
 
